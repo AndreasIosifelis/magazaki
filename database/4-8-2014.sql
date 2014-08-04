@@ -37,8 +37,9 @@ CREATE TABLE IF NOT EXISTS `content` (
 DELETE FROM `content`;
 /*!40000 ALTER TABLE `content` DISABLE KEYS */;
 INSERT INTO `content` (`idc`, `type`, `slug`, `sku`, `title`, `subtitle`, `price`, `content`, `notes`, `createdBy`, `updatedBy`, `createdOn`, `updatedOn`) VALUES
-	(1, 18, 'home', NULL, 'Home Titile', 'Home SubTitle', NULL, 'The Home page content', NULL, 1, 1, '2014-08-04 12:45:27', '2014-08-04 12:45:27'),
-	(2, 18, 'contact', NULL, 'Contact Title', 'Contact SubTitle', NULL, 'The Contact page content', NULL, 1, 1, '2014-08-04 12:46:14', '2014-08-04 12:46:14');
+	(1, 18, 'home', NULL, 'Home Title', 'Home SubTitle', NULL, 'The Home page content', NULL, 1, 1, '2014-08-04 12:45:27', '2014-08-04 12:45:27'),
+	(2, 18, 'contact', NULL, 'Contact Title', 'Contact SubTitle', NULL, 'The Contact page content', NULL, 1, 1, '2014-08-04 12:46:14', '2014-08-04 12:46:14'),
+	(3, 18, 'terms', NULL, 'Terms title', 'Terms subtitle', NULL, 'The Terms page content', NULL, 1, 1, '2014-08-04 15:36:09', '2014-08-04 15:36:09');
 /*!40000 ALTER TABLE `content` ENABLE KEYS */;
 
 
