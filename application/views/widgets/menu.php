@@ -17,14 +17,25 @@
             </ul>
         </li>
         <li><?=anchor("cart", CART)?></li>                       
-        <li><?=anchor("user", MY_ACCOUNT)?></li>
-        <?php if($this->session->userdata("logged_in") &&
-                    ($this->session->userdata("isSuperAdmin") || 
-                     $this->session->userdata("isAdmin") || 
-                     $this->session->userdata("isEditor") ||
-                     $this->session->usedata("isAuthor"))): ?>
-        <li><?=anchor("admin/index", ADMINISTRATION)?></li>
-        <?php endif; ?>
+        <li <?=$this->session->userdata("logged_in")?"class='has-dropdown'":""?>>
+            <?=anchor("user", MY_ACCOUNT)?>
+            <ul class="dropdown">
+                
+                <?php if($this->session->userdata("logged_in") &&
+                    ($this->session->userdata("is_super_admin") || 
+                     $this->session->userdata("is_admin") || 
+                     $this->session->userdata("is_editor") ||
+                     $this->session->usedata("is_author"))): ?>
+                    <li><?=anchor("admin/index", ADMINISTRATION)?></li>
+                <?php endif; ?>              
+                
+                
+                <?php if($this->session->userdata("logged_in")): ?>
+                <li><?=anchor("user/logout", "Logout")?></li>
+                <?php endif; ?>                
+            </ul>
+        </li>
+        
     </ul>
 </section>
 

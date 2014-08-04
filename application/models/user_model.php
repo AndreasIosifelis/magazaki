@@ -36,7 +36,7 @@ class User_model extends CI_Model{
             $dbUsername = $user->username;
             $dbPassword = $user->password;
             $salt = $user->salt;
-            $saltedPassword = hash("sha512", $password.$salt);
+            $saltedPassword = hash("sha512", $salt.$password);
             
             if($saltedPassword !== $dbPassword){
                 $this->errors[] = 106;
@@ -47,9 +47,38 @@ class User_model extends CI_Model{
         
     }
     
+    public function unsetUserSession(){
+        $this->session->unset_userdata("user_id");
+        $this->session->unset_userdata("user_fullname");
+    }
     
-    private function setUserSession($user){
+    
+    private function setUserSession($user){        
+        $userdata = [
+            "logged_in"=>TRUE,
+            "user_id"=>$user->idc,
+            "user_fullname"=>$user->firstName." ".$user->lastName 
+        ];
         
+        $userdata[$this->definePermission($user)] = TRUE;
+        $this->session->set_userdata($userdata);       
+    }
+    
+    private function definePermission($user){
+        switch($user->group){
+            case 11:
+                return "is_super_admin";
+            case 12:
+                return "is_admin";
+            case 13:
+                return "is_editor";
+            case 14:
+                return "is_author";
+            case 15:
+                return "is_customer";
+            default :
+                return "is_customer";
+        }
     }
     
     

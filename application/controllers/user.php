@@ -31,11 +31,18 @@ class User extends MZ_Controller {
         $this->User_model->dologin($json->username, $json->password);
         if(empty($this->User_model->errors)){
             $response["success"] = TRUE;
+            $response["session"] = $this->session->all_userdata();
         } else {
             $response["success"] = FALSE;
             $response["messages"] = $this->User_model->errors;
         }       
         $this->response($response);        
+    }
+    
+    public function logout(){
+        $this->load->model("User_model");
+        $this->User_model->logout();
+        redirect("user/login");
     }
 
 }

@@ -17,7 +17,7 @@ if (!defined('BASEPATH'))
   | path to your installation.
   |
  */
-$config['base_url'] = 'http://localhost:' . $_SERVER['SERVER_PORT'] . '/magazaki/';
+$config['base_url'] = 'http://localhost:' . $_SERVER['SERVER_PORT'] . '/magazaki/magazaki/';
 
 /*
   |--------------------------------------------------------------------------
@@ -72,7 +72,7 @@ $config['url_suffix'] = '';
   | than english.
   |
  */
-$config['language'] = 'greek';
+$config['language'] = 'english';
 
 /*
   |--------------------------------------------------------------------------

@@ -1,5 +1,5 @@
 <?php $this->load->view("widgets/header"); ?>    
-    <?php $this->load->view("user/loginForm"); ?>
-    <?php $this->load->view("user/registerForm"); ?>
+    <?php $this->load->view("user/loginform"); ?>
+    <?php $this->load->view("user/registerform"); ?>
 <?php $this->load->view("widgets/footer"); ?>
 
