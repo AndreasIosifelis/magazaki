@@ -22,16 +22,14 @@
             <ul class="dropdown">
                 
                 <?php if($this->session->userdata("logged_in") &&
-                    ($this->session->userdata("is_super_admin") || 
-                     $this->session->userdata("is_admin") || 
-                     $this->session->userdata("is_editor") ||
-                     $this->session->usedata("is_author"))): ?>
-                    <li><?=anchor("admin/index", ADMINISTRATION)?></li>
+                    ($instance->hasPermission(14))): ?>
+                    <li><?=anchor("admin", ADMINISTRATION)?></li>
                 <?php endif; ?>              
                 
                 
                 <?php if($this->session->userdata("logged_in")): ?>
-                <li><?=anchor("user/logout", "Logout")?></li>
+                <li><?=anchor("user/profile", PROFILE)?></li>
+                <li><?=anchor("user/logout", LOGOUT)?></li>                
                 <?php endif; ?>                
             </ul>
         </li>

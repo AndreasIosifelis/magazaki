@@ -17,7 +17,7 @@ if (!defined('BASEPATH'))
   | path to your installation.
   |
  */
-$config['base_url'] = 'http://localhost:' . $_SERVER['SERVER_PORT'] . '/magazaki/magazaki/';
+$config['base_url'] = 'http://localhost:' . $_SERVER['SERVER_PORT'] . '/magazaki/';
 
 /*
   |--------------------------------------------------------------------------
@@ -251,7 +251,7 @@ $config['sess_cookie_name'] = 'mz_session';
 $config['sess_expiration'] = 7200;
 $config['sess_expire_on_close'] = FALSE;
 $config['sess_encrypt_cookie'] = FALSE;
-$config['sess_use_database'] = FALSE;
+$config['sess_use_database'] = TRUE;
 $config['sess_table_name'] = 'mz_sessions';
 $config['sess_match_ip'] = FALSE;
 $config['sess_match_useragent'] = TRUE;

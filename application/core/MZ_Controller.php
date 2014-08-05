@@ -7,19 +7,37 @@ class MZ_Controller extends CI_Controller {
 
     protected $lang = "greek";
     protected $invalidClientError = 101;
+    protected $invalidUserError = 102;
+    protected $insufficientRightsError = 103;
+    public $data = [];
 
     public function __construct() {
         parent::__construct();
         require_once $this->session->userdata("lang_id") ? "application/language/{$this->session->userdata("lang_id")}.php" : "application/language/greek.php";
+        $this->data["instance"] = $this;
     }
-    
-    public function authUser(){
-        if(!$this->session->userdata("logged_in"))
+
+    public function authUser($level) {
+        if(!$this->session->userdata("logged_in")){
+            redirect("user/login");
+        } else if($this->session->userdata("user_access_level") > $level) {
+            redirect($this->agent->referrer());
             die();
+        }
     }
     
-    public function authClient($session){        
-        if($this->session->userdata("session_id") !== $session){
+    public function hasPermission($level){
+        if(!$this->session->userdata("logged_in")){
+            return false;
+        } else if($this->session->userdata("user_access_level") > $level) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public function authClient($session) {
+        if ($this->session->userdata("session_id") !== $session) {
             $this->errorResponse($this->invalidClientError);
             die();
         }

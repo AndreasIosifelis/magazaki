@@ -1,8 +1,32 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+(function() {
+    Array.prototype.contains = function(v) {
+        var i, l = this.length;
+        for (i = 0; i < l; i++) {
+            if (this[i] === v || this[i] === v)
+                return true;
+        }
+        return false;
+    };
+
+    Array.prototype.pushUnique = function(v) {
+        !this.contains(v) ? this.push(v) : null;
+        return this;
+    };
+
+    Array.prototype.getFirst = function() {
+        return this[0];
+    };
+
+    Array.prototype.getLast = function() {
+        return this[this.length - 1];
+    };
+
+    Array.prototype.removeAt = function(p, c) {
+        c && c > 0 ? this.splice(p, c) : this.splice(p, 1);
+    };
+})();
+
+
 
 var MZ = MZ || {};
 
@@ -48,20 +72,40 @@ MZ.FormSubmit = function() {
     $("form[data-formtype='ajax']").on("submit", function(e) {
         e.preventDefault();
 
-        var data = MZ.FormSerialize($(this));
-
+        var form = $(this),
+                data = MZ.FormSerialize(form),
+                response = form.find("#response"),
+                errorFunction = function(data) {
+                    response.html("<div data-alert class='alert-box alert'>" + data.messages.join("<br/>") + "</div>");
+                },
+                successFunction = function(data) {
+                    if (data.redirect) {
+                        window.location.href = window.location.href;
+                    }
+                },
+                callBackFunction = function(data) {
+                    if(data.messages && data.messages.contains(101)){
+                        window.location.href = window.location.href;
+                    }
+                    
+                    
+                    if (data.success) {
+                        successFunction(data);
+                    } else {
+                        errorFunction(data);
+                    }
+                };
+        response.html("<div data-alert class='alert-box info'>Παρακαλώ περιμένετε...</div>");
         $.ajax({
-            url: $(this).attr("action"),
+            url: form.attr("action"),
             dataType: "json",
             method: "POST",
             data: {
                 json: data
             },
-            success: function(data) {
-
-            },
+            success: callBackFunction,
             error: function(data) {
-
+                alert(data);
             }
         });
 

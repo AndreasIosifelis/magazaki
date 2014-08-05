@@ -12,15 +12,15 @@ class User_model extends CI_Model{
     public function dologin($username, $password){
         
         if(empty($username) || empty($password)){
-            $this->errors[] = 102;
+            $this->errors[] = WRONG_USERNAME_OR_PASSWORD;
         }
         
         if(strlen($username) < 6 || strlen($username) > 25){
-            $this->errors[] = 103;
+            $this->errors[] = WRONG_USERNAME_OR_PASSWORD;
         }
         
         if(strlen($password) !== 128){
-            $this->errors[] = 104;
+            $this->errors[] = WRONG_USERNAME_OR_PASSWORD;
         }
         
         $this->db->where("username", $username);
@@ -28,7 +28,7 @@ class User_model extends CI_Model{
         $query = $this->db->get("user");
         $count = $query->num_rows;
         if($count !== 1){
-            $this->errors[] = 105;
+            $this->errors[] = WRONG_USERNAME_OR_PASSWORD;
         } else {
             
             $user = $query->result()[0];
@@ -39,7 +39,7 @@ class User_model extends CI_Model{
             $saltedPassword = hash("sha512", $salt.$password);
             
             if($saltedPassword !== $dbPassword){
-                $this->errors[] = 106;
+                $this->errors[] = empty($this->errors) ? WRONG_USERNAME_OR_PASSWORD : "";
             } else {
                 $this->setUserSession($user);
             }           
@@ -48,8 +48,10 @@ class User_model extends CI_Model{
     }
     
     public function unsetUserSession(){
+        $this->session->unset_userdata("logged_in");
         $this->session->unset_userdata("user_id");
-        $this->session->unset_userdata("user_fullname");
+        $this->session->unset_userdata("user_fullname");        
+        $this->session->unset_userdata("user_access_level");
     }
     
     
@@ -57,28 +59,11 @@ class User_model extends CI_Model{
         $userdata = [
             "logged_in"=>TRUE,
             "user_id"=>$user->idc,
-            "user_fullname"=>$user->firstName." ".$user->lastName 
-        ];
-        
-        $userdata[$this->definePermission($user)] = TRUE;
+            "user_fullname"=>$user->firstName." ".$user->lastName,
+            "user_access_level"=>$user->group
+        ];      
+
         $this->session->set_userdata($userdata);       
-    }
-    
-    private function definePermission($user){
-        switch($user->group){
-            case 11:
-                return "is_super_admin";
-            case 12:
-                return "is_admin";
-            case 13:
-                return "is_editor";
-            case 14:
-                return "is_author";
-            case 15:
-                return "is_customer";
-            default :
-                return "is_customer";
-        }
     }
     
     

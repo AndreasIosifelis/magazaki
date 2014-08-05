@@ -4,36 +4,46 @@ if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
 class User extends MZ_Controller {
-
-
-    public function index() {
+    
+    public function index() {        
         if($this->session->userdata("logged_in"))
-            redirect("user/account");
+            redirect("user/profile");
         else
             redirect("user/login");
     }
     
     public function login(){
-        $data["page"]["title"] = "Login";
-        $this->load->view("user/login", $data);
+        if($this->session->userdata("logged_in")){
+            redirect("user/profile");
+        } else {
+            $this->data["page"]["title"] = "Login";
+            $this->load->view("user/login", $this->data);
+        }
+        
     }
     
     public function profile(){
-        $data["page"]["title"] = PROFILE;
-        $this->load->view("user/profile", $data);
+        if($this->session->userdata("logged_in")){
+            $this->data["page"]["title"] = PROFILE;        
+            $this->load->view("user/profile", $this->data);            
+        } else {
+            redirect("user/login");
+        }
+        
     }
     
-    public function dologin(){        
+    public function dologin(){    
         $json = $this->request();        
-        $this->authClient($json->session);
-        
+        $this->authClient($json->session);        
         $this->load->model("User_model");        
         $this->User_model->dologin($json->username, $json->password);
         if(empty($this->User_model->errors)){
             $response["success"] = TRUE;
-            $response["session"] = $this->session->all_userdata();
+            $response["message_type"] = "info";
+            $response["redirect"] = site_url("user/profile");
         } else {
             $response["success"] = FALSE;
+            $response["message_type"] = "alert";
             $response["messages"] = $this->User_model->errors;
         }       
         $this->response($response);        
@@ -41,8 +51,14 @@ class User extends MZ_Controller {
     
     public function logout(){
         $this->load->model("User_model");
-        $this->User_model->logout();
+        $this->User_model->unsetUserSession();
         redirect("user/login");
+    }
+    
+    public function search(){
+        $this->authUser(14);
+        $this->data["page"]["title"] = PERSONS;
+        $this->load->view("user/search", $this->data);
     }
 
 }

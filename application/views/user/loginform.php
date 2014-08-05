@@ -31,4 +31,11 @@
        <?=  form_button(["type"=>"submit","content"=>LOGIN, "class"=>"button expand"])?>
     </div> 
 </div>
+<div class="row">
+    <div class="large-6  large-offset-3 columns" id="response">
+        
+    </div>
+</div>
+
+
 <?=  form_close()?>
