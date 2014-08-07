@@ -28,7 +28,7 @@
 </div>
 <div class="row">
     <div class="large-6 large-offset-3 columns">
-       <?=  form_button(["type"=>"submit","content"=>LOGIN, "class"=>"button expand"])?>
+       <?=  form_button(["type"=>"submit","content"=>LOGIN, "class"=>"button expand radius"])?>
     </div> 
 </div>
 <div class="row">

@@ -6,10 +6,16 @@ if (!defined('BASEPATH'))
 class Lookup extends MZ_Controller {
     
     
-    public function index($idc){
+    public function index(){
         $this->authUser(12);
+        $parent = $this->input->get("parent");
+        $searchText = $this->input->get("searchText");
+        $this->load->model("Lookup_model");
         $this->data["page"]["title"] = LOOKUPS;
-        $this->data["idc"] = $idc;
+        $this->data["parent"] = $parent;
+        $this->data["searchText"] = $searchText;
+        $this->data["lookupTypes"] = $this->Lookup_model->getLookupTypes();
+        $this->data["lookups"] = $this->Lookup_model->getLookups($parent, $searchText);
         $this->load->view("lookup/search", $this->data);
     }
     

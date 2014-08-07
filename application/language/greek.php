@@ -5,7 +5,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+define("WRONG_USERNAME_OR_PASSWORD", "Υπήρξε κάποιο πρόβλημα με τη σύνδεση.Σιγουρευτείτε ότι έχετε δώσει σωστά τα στοιχεία σύνδεσης και βεβαιωθείτε ότι ο λογαριασμός σας είναι ενεργοποιημένος");
 define("HOME", "Αρχική");
 define("CONTACT", "Επικοινωνία");
 define("ADMINISTRATION", "Διαχείριση");
@@ -22,5 +22,8 @@ define("LOGOUT", "Αποσύνδεση");
 define("USERS", "Χρήστες");
 define("PERSONS", "Πρόσωπα");
 define("LOOKUPS", "Βοηθητικά ευρετήρια");
-define("WRONG_USERNAME_OR_PASSWORD", "Υπήρξε κάποιο πρόβλημα με τη σύνδεση.Σιγουρευτείτε ότι έχετε δώσει σωστά τα στοιχεία σύνδεσης και βεβαιωθείτε ότι ο λογαριασμός σας είναι ενεργοποιημένος");
+define("TELEPHONE_TYPES", "Είδη Τηλεφώνου");
+define("SEARCH", "Αναζήτηση");
+define("RESET", "Εκκαθάριση");
+
 
